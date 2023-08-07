@@ -13,7 +13,7 @@ export class PipelineStage extends Stage {
 
     const config = this.node.tryGetContext(props.environment);
 
-    new VaultStack(this, 'QuizStack', {
+    new VaultStack(this, 'VaultStack', {
       certificateId: config.certificateId,
       hostedZoneDomain: `${props.environment}.brainfartlab.com`,
       hostedZoneId: config.hostedZoneId,
