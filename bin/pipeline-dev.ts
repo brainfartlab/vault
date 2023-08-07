@@ -7,7 +7,7 @@ const app = new cdk.App();
 const env = 'dev';
 const config = app.node.tryGetContext(env);
 
-new PipelineStack(app, 'vault-quiz-dev-pipeline', {
+new PipelineStack(app, 'vault-dev-pipeline', {
   env: {
     account: '799425856515',
     region: 'eu-west-1',
