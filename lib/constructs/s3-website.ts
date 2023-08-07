@@ -1,6 +1,6 @@
 import { Arn, ArnFormat, RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { Distribution } from 'aws-cdk-lib/aws-cloudfront';
+import { Distribution, ResponseHeadersPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { AnyPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { ARecord, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
@@ -40,14 +40,30 @@ export class S3Website extends Construct {
       websiteIndexDocument: 'index.html',
     });
 
+    const origin = new S3Origin(hostBucket);
+
     const distribution = new Distribution(this, 'WebsiteDistribution', {
       certificate: props.certificate,
       defaultBehavior: {
-        origin: new S3Origin(hostBucket),
+        origin,
       },
       domainNames: [
         vaultSubDomain,
       ],
+    });
+
+    distribution.addBehavior('*.wasm', origin, {
+      responseHeadersPolicy: new ResponseHeadersPolicy(this, 'ContentTypePolicy', {
+        customHeadersBehavior: {
+          customHeaders: [
+            {
+              header: 'Content-Type',
+              value: 'application/wasm',
+              override: true,
+            },
+          ],
+        },
+      }),
     });
 
     new ARecord(this, 'HostBucketAlias', {
