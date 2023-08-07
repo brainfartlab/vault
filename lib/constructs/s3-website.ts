@@ -1,6 +1,6 @@
 import { Arn, ArnFormat, RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { Distribution, ResponseHeadersPolicy } from 'aws-cdk-lib/aws-cloudfront';
+import { Distribution, ResponseHeadersPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { AnyPrincipal, Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { ARecord, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
@@ -64,6 +64,7 @@ export class S3Website extends Construct {
           ],
         },
       }),
+      viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
     });
 
     new ARecord(this, 'HostBucketAlias', {

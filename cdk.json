@@ -59,11 +59,13 @@
     "dev": {
       "account": "310831841795",
       "region": "eu-west-1",
+      "certificateId": "d73b6b67-6b98-4001-bf76-f33f155e57af ",
       "hostedZoneId": "Z101975334KQ8NOCYJ97L"
      },
     "prd": {
       "account": "710339506557",
       "region": "eu-west-1",
+      "certificateId": "",
       "hostedZoneId": "Z101975334KQ8NOCYJ97L"
      }
   }
