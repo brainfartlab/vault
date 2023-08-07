@@ -14,6 +14,7 @@ new PipelineStack(app, 'vault-quiz-dev-pipeline', {
   },
   account: config.account,
   branch: 'dev',
+  connectionId: config.connectionId,
   environment: env,
   repoName: 'brainfartlab/vault',
 });

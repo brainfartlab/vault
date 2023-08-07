@@ -14,6 +14,7 @@ new PipelineStack(app, 'vault-prd-pipeline', {
   },
   account: config.account,
   branch: 'main',
+  connectionId: config.connectionId,
   environment: env,
   repoName: 'brainfartlab/vault',
 });

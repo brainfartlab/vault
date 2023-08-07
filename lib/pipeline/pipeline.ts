@@ -8,6 +8,7 @@ import { PipelineStage } from './stage';
 interface PipelineStackProps extends StackProps {
   account: string,
   branch: 'dev' | 'main';
+  connectionId: string;
   environment: 'dev' | 'prd';
   repoName: string;
 }
@@ -19,7 +20,7 @@ export class PipelineStack extends Stack {
     const connectionArn = Arn.format({
       arnFormat: ArnFormat.SLASH_RESOURCE_NAME,
       resource: 'connection',
-      resourceName: '94afd244-d1c7-48d8-9162-41276d79cc2a',
+      resourceName: props.connectionId,
       service: 'codestar-connections',
     }, this);
 
